@@ -1,3 +1,2 @@
-# softwareEngineering
-//Sunder Krishna upreti
-//KathmNDU NEPAL
+# SoftwareEngineering
+# CSCE 3444 
