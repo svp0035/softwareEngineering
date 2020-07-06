@@ -1,2 +1,1 @@
-# SoftwareEngineering
-# CSCE 3444 
+Library Manegement System
