@@ -1,0 +1,23 @@
+
+.action-button {
+	background-color: Transparent;
+	border: none; 
+	outline: none; 
+	cursor: pointer;
+}
+
+.action-button:focus {outline:0;}
+nav { text-align: center; }
+nav { text-align: center; }
+nav li {list-style: none; display: inline-block;}
+a {color: #3297FD; display: block; margin: 50; text-decoration: none; }
+a:hover {background-color: #2D89E5;  color: #fff;}
+.navbar-nav > .active > a {
+  background-color: #346abb; 
+  color: #fff;  
+}
+.card-img-top {
+    width: 50dp;
+    height: 10vw;
+    object-fit: center;
+}
