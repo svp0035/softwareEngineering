@@ -1,3 +1,8 @@
+<!-- 
+Sunder Krishna Upreti
+This is the main homepage of our system 
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -6,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title> HOME </title>
+    <title>UNT LIBRARY | HOME</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -18,7 +23,7 @@
 	<div class="bg1">
 		<div class="wrapper">
 			<!-- Sidebar  -->
-			<nav id="sidebar">
+			<nav id="sidebar" >
 				<div class="sidebar-header">
 					<h3></h3>
 				</div>
@@ -51,11 +56,17 @@
 				<div class="row">
 					<div class="col-md-6 mr-auto ml-auto">
 						<div class="card text-center" style=" background-color: rgba(245, 245, 245, 0.7); ">
-							<div class="card-body"  >
+							<div class="card-body" >
+								
+								<h1>  &nbsp; </h1>
+								<h1>  &nbsp;</h1>
 								<h1>WELCOME</h1>
-								<h2>READERS</h2>
-								<h2>TO</h2>
-								<h2>UNT LIBRARY</h2>
+								<h1>TO</h1>
+								<h1>UNT LIBRARY</h1>
+								<h1>  &nbsp;</h1>
+								<h1>  &nbsp; </h1>
+								
+
 							</div>
 						</div>
 					</div>
@@ -63,7 +74,7 @@
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-			<div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+			<div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
     <!-- jQuery CDN -->
@@ -75,8 +86,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
             });
         });
     </script>
