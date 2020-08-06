@@ -2,7 +2,6 @@
 Sunder Krishna Upreti
 This is the file for our database and it connects the website through phpMyAdmin 
 */
-
 -- phpMyAdmin SQL Dump
 -- version 4.9.2
 -- https://www.phpmyadmin.net/
