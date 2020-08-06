@@ -14,7 +14,7 @@ To use our website locally, you have to do the following things:
 9.	To open the admin page of our website, go to phpMyAdmin and click on the users table of our database. It will then show you the admin email and password to log in as admin into the system. 
 10.	In case you are not able to find the admin information,
  email: admin@admin.com 
- password: 1234556
+ password: 123456
 11.	To login as a student, you can click on the login page and enter your credentials, or you can register as a new user and create an account.
 12.	If users want to borrow a book, they can click on the borrow book tab and search for all books or specific books to borrow.
 13.	The users can also leave feedback and contact the library through the sidebar panel on the left side of the website.
