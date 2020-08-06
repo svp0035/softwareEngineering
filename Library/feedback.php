@@ -21,11 +21,11 @@
 </head>
 
 <?php
-	session_start();
-	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'student' ) {
-	   header('Location: login.php');
+	session_start(); //creates a session or resumes the current one based on a session identifier
+	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'student' ) { //checks if session variable have user_id and role equal student
+	   header('Location: login.php'); //If above is false then redirect to login page 
 	}
-	require_once("db-connection.php");
+	require_once("db-connection.php");  // include db connection helper in this php file
 ?>
 <body>
 	<div class="bg2">
@@ -145,7 +145,7 @@
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-		  <div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+		  <div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
 	
@@ -161,49 +161,47 @@
 		
 		(function() {
 			'use strict';
-			window.addEventListener('load', function() {
-				$(".emoticon-span").click(function() {
+			window.addEventListener('load', function() { //window on load function
+				$(".emoticon-span").click(function() { //emoticon click event listner
 					document.getElementsByName('emotion')[0].value = $(this).html();
 				});
 				
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
 				var form = document.getElementById('mainForm');
 				var button = document.getElementById('submitbtn');
 				
-				
-				// Loop over them and prevent submission
-				button.addEventListener('click', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
+				button.addEventListener('click', function(event) { //button click event listner
+					if (form.checkValidity() === false) { //checks if form is valid
+						event.preventDefault(); // if not valid then prevent to submit
 						event.stopPropagation();
 						form.classList.add('was-validated');
 					} else{
-						form.submit();
+						form.submit(); //if valid then form submit
 					} 
 				}, false);
 			}, false);
 		})();
 		
 		$(document).ready(function () {
-			
-			$('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
             });
         });
     </script>
 	
 	<?php   
-		if($_POST){  
+		if($_POST){  // checks if there is post request
+			 // get parameters from post request
 			$userID = $_SESSION['user_id'];
 			$emotion = $_POST['emotion']; 
 			$suggestion = $_POST['suggestion'];				
 			
+			// isnsert feedback query
 			$sql ="INSERT INTO feedback (user_id, emotion, suggestion, feedback_date) VALUES ('$userID', '$emotion', '$suggestion', CURDATE())";
 		
-			if ($conn->query($sql) === TRUE) {
-				echo '<script>  $("#successAlert").show(); </script>' ; 
+			if ($conn->query($sql) === TRUE) { //check if isnsert feedback query execution success
+				echo '<script>  $("#successAlert").show(); </script>' ;  //show success alert
 			} else {
-				echo '<script>  $("#failAlert").show(); </script>' ; 
+				echo '<script>  $("#failAlert").show(); </script>' ; //show fail alert
 			}
 		}  
 	?>
