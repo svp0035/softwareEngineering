@@ -23,11 +23,11 @@
 </head>
 
 <?php
-	session_start();
-	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin' ) {
-	   header('Location: login.php');
+	session_start(); //creates a session or resumes the current one based on a session identifier
+	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin' ) { //checks if session variable have user_id and role equal admin
+	   header('Location: login.php'); //If above is false then redirect to login page 
 	}
-	require_once("db-connection.php");
+	require_once("db-connection.php"); // include db connection helper in this php file
 ?>
 
 <body>
@@ -185,28 +185,29 @@
     <script type="text/javascript">
 		var $deleteRow;
 		var $deleteID;
-		
+		//this method is used add new row in searchTable table
 		function addtoTable(id, firstName, lastName, phoneNumber) {
 			$("#searchTable").show();
+			// new row created 
 			var markup = "<tr><td class=\"studentID\">" + id + "</td><td>" + firstName + "</td><td>" + lastName + "</td><td>" + phoneNumber + "</td><td><button class=\"action-button\" type=\"button\" data-toggle=\"modal\" data-target=\"#exampleModal\"  ><img src=\"./image/delete.png\" width=\"20\" height=\"20\"></button></td></tr>";
-			$("table tbody").append(markup);
+			$("table tbody").append(markup); // new row appended 
 		}
 		
-		function deleteConfirmed() {	
-			$.ajax({
+		function deleteConfirmed() { //fires on delete confirm popup ok clicked	
+			$.ajax({ //ajax post request
 				type : "post",
-				url : "delete.php",
+				url : "delete.php", // post url
 				data : "studentID=" + $deleteID,
 				success : function(msg) {
-					if ( msg.indexOf("SUCCESS") >= 0) {
+					if ( msg.indexOf("SUCCESS") >= 0) { // success callback
 						$deleteRow.remove();
 						var tbody = $("#searchTable tbody");
-						if (tbody.children().length == 0) {
-							$("#searchTable").hide();
+						if (tbody.children().length == 0) { // table have row count 0
+							$("#searchTable").hide(); // hide table 
 						}
-						$("#successAlert").show();					
+						$("#successAlert").show();	 //show success alert					
 					} else {
-						$("#failAlert").show();
+						$("#failAlert").show();  //show fail alert	
 					}
 				}
 			});
@@ -216,36 +217,36 @@
 		(function() {
 			'use strict';
 			window.addEventListener('load', function() {
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				//get table body using jquery
 				var tbody = $("#searchTable tbody");
 
 				if (tbody.children().length == 0) {
 					$("#searchTable").hide();
 				}
 				
-				$(".action-button").click(function() {
+				$(".action-button").click(function() { //table row action button click listner
 					$deleteRow = $(this).closest('tr');
-					$deleteID = $deleteRow.find(".studentID").text();
+					$deleteID = $deleteRow.find(".studentID").text(); //gets student ID from the clicked row 
 				});
 				
 				var form = document.getElementById('searchForm');
 				var button = document.getElementById('searchbtn');
 				// Loop over them and prevent submission
-				button.addEventListener('click', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
+				button.addEventListener('click', function(event) { //button click event listner
+					if (form.checkValidity() === false) { //checks if form is valid
+						event.preventDefault(); // if not valid then prevent to submit
 						event.stopPropagation();
 						form.classList.add('was-validated');
 					} else{
-						form.submit();
+						form.submit(); //if valid then form submit
 					} 
 				}, false);
 			}, false);
 		})();
 
 		$(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
             });
         });
     </script>
@@ -257,20 +258,21 @@
 			
 			$sql ="";
 			
-			if($searchBy == 'Last Name') {
+			if($searchBy == 'Last Name') { //if searchBy Last Name
 				$sql ="SELECT * FROM `users` WHERE last_name LIKE '%$searchValue%' and role = 'student'";
-			} else if($searchBy == 'Student ID') {
+			} else if($searchBy == 'Student ID') {  //if searchBy Student ID
 				$sql ="SELECT * FROM `users` WHERE user_id LIKE '%$searchValue%' and role = 'student'";
 			}
 			
-			$result = $conn->query($sql);
-			if ($result->num_rows > 0) {
+			$result = $conn->query($sql); // execute query 
+			if ($result->num_rows > 0) { //if result row gt than 0
 				while($row = $result->fetch_assoc()) {
+					// get user_id, last_name, first_name, phone_number from row
 					$user_id = $row["user_id"];
 					$last_name = $row["last_name"];
 					$first_name = $row["first_name"];
 					$phone_number = $row["phone_number"];
-					
+					// add user_id, last_name, first_name, phone_number in html table row
 					echo "<script>  addtoTable('$user_id', '$first_name', '$last_name', '$phone_number'); </script>" ;
 				}
 			} 
