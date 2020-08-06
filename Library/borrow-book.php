@@ -20,11 +20,11 @@ CSCE 3444
 </head>
 
 <?php
-	session_start(); //creates a session or resumes the current one based on a session identifier
-	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'student' ) { //checks if session variable have user_id and role equal student
-	   header('Location: login.php'); //If above is false then redirect to login page 
+	session_start();
+	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'student' ) {
+	   header('Location: login.php');
 	}
-	require_once("db-connection.php"); // include db connection helper in this php file
+	require_once("db-connection.php");
 ?>
 <body>
 	<div class="bg2">
@@ -90,13 +90,13 @@ CSCE 3444
 								<form id= "searchForm" method="post" class="needs-validation" novalidate="">
 									<div class="row">
 										<div class="col-md-5 mb-3 mr-auto ml-auto">
-											<input type="text" class="form-control" name="searchValue" placeholder="Search Value" value="" required="">
+											<input type="text" class="form-control" name="searchValue" placeholder="Search Value" value="">
 											<div class="invalid-feedback">
 												Search Value is required.
 											</div>
 										</div>
 										<div class="col-md-3 mb-3 mr-auto ml-auto">
-											<select class="custom-select d-block w-100" name="searchBy" required="">
+											<select class="custom-select d-block w-100" name="searchBy">
 												<option value="">Search By...</option>
 												<option>Title</option>
 												<option>Genre</option>
@@ -133,7 +133,7 @@ CSCE 3444
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-		  <div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+		  <div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
 	
@@ -146,46 +146,45 @@ CSCE 3444
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     
     <script type="text/javascript">
-		//this method is used add new row in searchTable table
 		function addtoTable(id, title, author, genre, edition, count, current_borrorw) {
 			$("#searchTable").show();
 			var markup = "";
-			if (current_borrorw != 0) { //if employee have already borrowed
+			if (current_borrorw != 0) {
 				markup = "<tr><td class=\"bookID\">" + id + "</td><td>" + title + "</td><td>" + author + "</td><td>" + genre + "</td><td>" + edition + "</td><td>Borrowed</td></tr>";
 			} else {
-				if (count == 0) { //if available book count 0
+				if (count == 0) {
 					markup = "<tr><td class=\"bookID\">" + id + "</td><td>" + title + "</td><td>" + author + "</td><td>" + genre + "</td><td>" + edition + "</td><td>Not Available</td></tr>";
-				} else { //if available book count gt than 0
+				} else {
 					markup = "<tr><td class=\"bookID\">" + id + "</td><td>" + title + "</td><td>" + author + "</td><td>" + genre + "</td><td>" + edition + "</td><td><button class='btn-success action-button form-control' type='button'>BORROW</button></td></tr>";
 				}
 			}
 			
-			$("table tbody").append(markup); //add new row
+			$("table tbody").append(markup);
 		}
 	 
 		(function() {
 			'use strict';
-			window.addEventListener('load', function() { //window on load function
-				//get table body using jquery
+			window.addEventListener('load', function() {
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
 				var tbody = $("#searchTable tbody");
 
-				if (tbody.children().length == 0) { //checks if Table have any row or not
-					$("#searchTable").hide(); //if Table dont have any row then hide table
+				if (tbody.children().length == 0) {
+					$("#searchTable").hide();
 				}
 				
-				$(".action-button").click(function() { //table row action button click listner
+				$(".action-button").click(function() {
 					var $row = $(this).closest('tr')
-					var $bookID = $row.find(".bookID").text(); //gets book ID from the clicked row
+					var $bookID = $row.find(".bookID").text();
 					
-					$.ajax({ // ajax post request
+					$.ajax({
 						type : "post",
-						url : "borrow.php", // post request url
-						data : "userID=" + <?php echo $_SESSION['user_id']; ?> + "&bookID=" + $bookID, 
+						url : "borrow.php",
+						data : "userID=" + <?php echo $_SESSION['user_id']; ?> + "&bookID=" + $bookID,
 						success : function(msg) {
-							if ( msg.indexOf("SUCCESS") >= 0) { //check if return message SUCCESS
-								document.location.reload(); // reload current url
+							if ( msg.indexOf("SUCCESS") >= 0) {
+								document.location.reload(); 
 							} else {
-								$("#failAlert").show(); //show error message
+								$("#failAlert").show();
 							}
 						}
 					});
@@ -193,48 +192,45 @@ CSCE 3444
 				});
 				var form = document.getElementById('searchForm');
 				var button = document.getElementById('searchbtn');
-			
-				button.addEventListener('click', function(event) { //button click event listner
-					if (form.checkValidity() === false) { //checks if form is valid
-						event.preventDefault(); // if not valid then prevent to submit
+				// Loop over them and prevent submission
+				button.addEventListener('click', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
 						event.stopPropagation();
 						form.classList.add('was-validated');
 					} else{
-						form.submit(); //if valid then form submit
+						form.submit();
 					} 
 				}, false);
 			}, false);
 		})();
 		
 		$(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
-                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
+			$('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
             });
         });
     </script>
 	
 	<?php   
-		if($_POST){  // checks if there is post request
-			// get parameter from post request
+		if($_POST){  
 			$searchValue = $_POST['searchValue']; 
 			$searchBy = $_POST['searchBy'];				
 			$user_id = $_SESSION['user_id'];
 			
-			// select all borrow book query
 			$sql ="SELECT *, (SELECT count(*) FROM borrow_return WHERE books.book_id=borrow_return.book_id and borrow_return.user_id='$user_id' and borrow_return.returned='N') current_borrorw FROM books";
 			
-			if($searchBy == 'Title') { //if searchBy equal Title
+			if($searchBy == 'Title') {
 				$sql .=" WHERE title LIKE '%$searchValue%'";
-			} else if($searchBy == 'Author') { //if searchBy equal Author
+			} else if($searchBy == 'Author') {
 				$sql .=" WHERE author LIKE '%$searchValue%'";
-			} else if($searchBy == 'Genre') { //if searchBy equal Genre
+			} else if($searchBy == 'Genre') {
 				$sql .=" WHERE genre LIKE '%$searchValue%'";
 			}
 			
-			$result = $conn->query($sql); //execute query
-			if ($result->num_rows > 0) { //if result row gt than 0
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0) {
 				while($row = $result->fetch_assoc()) {
-					// get book_id, title, author, genre, edition, edition, current_borrorw from row
 					$book_id = $row["book_id"];
 					$title = $row["title"];
 					$author = $row["author"];
@@ -242,7 +238,7 @@ CSCE 3444
 					$edition = $row["edition"];
 					$count = $row["count"];
 					$current_borrorw = $row["current_borrorw"];
-					// add book_id, title, author, genre, edition, edition, current_borrorw in table row
+					
 					echo "<script>  addtoTable('$book_id', '$title', '$author', '$genre', '$edition', $count, '$current_borrorw'); </script>" ;
 				}
 			} 
