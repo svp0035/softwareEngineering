@@ -5,7 +5,6 @@
 	CSCE 3444 - Professor Okafor
   -->
 
-
 <!DOCTYPE html>
 <html>
 
@@ -23,8 +22,8 @@
 </head>
 
 <?php
-	session_start();
-	require_once("db-connection.php");
+	session_start(); //creates a session or resumes the current one based on a session identifier
+	require_once("db-connection.php"); // include db connection helper in this php file
 ?>
 
 <body>
@@ -52,7 +51,7 @@
 			<!-- Page Content  -->
 			<div id="content">
 				<nav class="navbar navbar-expand-lg navbar-light bg-light" >
-					<div class="container-fluid">
+					<div class="container-fluid" background-color: rgba(245, 245, 245, 0.5)>
 						<button type="button" id="sidebarCollapse" class="btn btn-info" >
 							<span class="navbar-toggler-icon"></span>
 						</button>
@@ -115,7 +114,8 @@
 											<a href="register.php">Register Now!</a>
 										</div>
 										<div class="col-md-4 mb-3 p-0 ml-auto">
-											<a href="#">Forgot Password?</a>
+											<a href="register.php">Forgot Password?</a>
+											<p> Please email the admin or register again! <p>
 										</div>
 									</div>
 								</form>
@@ -126,30 +126,31 @@
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-		  <div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+		  <div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
 	
 	<?php   
-		if($_POST){  
+		if($_POST){ // checks if there is post request from add page
+			//get parameters from post request 
 			$email = $_POST['email']; 
 			$password = $_POST['password'];				
 			
-			$sql = "SELECT user_id, role FROM users where email='$email' and password='$password'";
-			$result = $conn->query($sql);
-			if ($result->num_rows > 0) {
+			$sql = "SELECT user_id, role FROM users where email='$email' and password='$password'"; // query to check email and password
+			$result = $conn->query($sql); //execute query
+			if ($result->num_rows > 0) { //checks if result num_rows is gt than 0
 			  // output data of each row
 				while($row = $result->fetch_assoc()) {
 					 $_SESSION['user_id'] = $row["user_id"];
 					 $_SESSION['role'] = $row["role"];
 					 
-					 if ($row["role"] == 'admin') {
-						header('Location: admin-panel.php');
-					 } else if ($row["role"] == 'student') {
-						header('Location: student-panel.php');
+					 if ($row["role"] == 'admin') { //check if user is admin
+						header('Location: admin-panel.php'); //redirect to admin panel
+					 } else if ($row["role"] == 'student') { //check if user is student
+						header('Location: student-panel.php');//redirect to student panel
 					 }
 				}
-			} else {
+			} else { //if result row count 0 then show fail alert
 				echo '<script>  $("#failAlert").show(); </script>' ; 
 			}
 		}  
@@ -166,27 +167,26 @@
     <script type="text/javascript">
 		(function() {
 	        'use strict';
-			window.addEventListener('load', function() {
-				
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			window.addEventListener('load', function() { //window on load function
+				//get form and submitbtn by id
 				var form = document.getElementById('mainForm');
 				var button = document.getElementById('submitbtn');
-				// Loop over them and prevent submission
-				button.addEventListener('click', function(event) {
-					if (form.checkValidity() === false) {
-						event.preventDefault();
+		
+				button.addEventListener('click', function(event) { //button click event listner
+					if (form.checkValidity() === false) { //checks if form is valid
+						event.preventDefault(); // if not valid then prevent to submit
 						event.stopPropagation();
 						form.classList.add('was-validated');
 					} else{
-						form.submit();
+						form.submit(); //if valid then form submit
 					} 
 	            }, false);
 	        }, false);
 	    })();
 
 		$(document).ready(function () {
-			$('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
             });
         });
     </script>
