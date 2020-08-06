@@ -8,7 +8,7 @@ CSCE 3444
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
     <title>UNT LIBRARY | REGISTER</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -17,12 +17,12 @@ CSCE 3444
     <link rel="stylesheet" href="./css/style.css">
 	<!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
-
+	
 </head>
 
 <?php
-session_start();
-require_once("db-connection.php");
+	session_start();
+	require_once("db-connection.php");
 ?>
 
 <body>
@@ -95,7 +95,7 @@ require_once("db-connection.php");
 										</div>
 									  </div>
 									</div>
-
+									
 									<div class="row">
 									  <div class="col-md-6 mb-3">
 										<label for="branch">Email Address</label>
@@ -116,7 +116,7 @@ require_once("db-connection.php");
 										</div>
 									  </div>
 									</div>
-
+									
 									<div class="row">
 									  <div class="col-md-6 mb-3">
 										<label for="branch">Phone Number</label>
@@ -139,7 +139,7 @@ require_once("db-connection.php");
 									</div>
 									<br>
 									<input type="hidden" class="form-control" name="updateID" placeholder="" value="" required="">
-
+											
 									<div class="col-md-4 mb-3 mr-auto ml-auto">
 										<button id="submitbtn" class="btn-success form-control" type="button">SUBMIT</button>
 									</div>
@@ -151,63 +151,63 @@ require_once("db-connection.php");
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-		  <div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+		  <div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
-
-<?php   
-if($_POST){ // checks if there is post request
-	// get parameters from post request
-	$studentID = $_POST['studentID']; 
-	$firstName = $_POST['firstName'];				
-	$lastName = $_POST['lastName'];
-	$phoneNumber = $_POST['phoneNumber'];		
-	$email = $_POST['email'];				
-	$password = $_POST['password'];				
-	// isnsert query 
-	$sql ="INSERT INTO users VALUES ($studentID, '$firstName', '$lastName', '$phoneNumber', '$email', '$password', 'student')";
-
-	if ($conn->query($sql) === TRUE) { // checks if query sucessfully executed
-		echo '<script>  $("#successAlert").show(); </script>' ; // show success alert
-	} else {
-		echo '<script>  $("#failAlert").show(); </script>' ; // show fail alert
-	}
-}  
-?> 
-
+	
+	<?php   
+		if($_POST){  // checks if there is post request
+			// get parameters from post request
+			$studentID = $_POST['studentID']; 
+			$firstName = $_POST['firstName'];				
+			$lastName = $_POST['lastName'];
+			$phoneNumber = $_POST['phoneNumber'];		
+			$email = $_POST['email'];				
+			$password = $_POST['password'];				
+			// isnsert query 
+			$sql ="INSERT INTO users VALUES ($studentID, '$firstName', '$lastName', '$phoneNumber', '$email', '$password', 'student')";
+			
+			if ($conn->query($sql) === TRUE) { // checks if query sucessfully executed
+				echo '<script>  $("#successAlert").show(); </script>' ;  // show success alert
+			} else {
+				echo '<script>  $("#failAlert").show(); </script>' ; // show fail alert
+			}
+		}  
+	?> 
+	
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-
+	
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+		(function() {
+	        'use strict';
+			window.addEventListener('load', function() { //window on load function
+				
+				var form = document.getElementById('mainForm');
+				var button = document.getElementById('submitbtn');
+				
+				button.addEventListener('click', function(event) { //button click event listner
+					if (form.checkValidity() === false) { //checks if form is valid
+						event.preventDefault(); // if not valid then prevent to submit
+						event.stopPropagation();
+						form.classList.add('was-validated');
+					} else{
+						form.submit(); //if valid then form submit
+					} 
+				}, false);
+	        }, false);
+	    })();
 
-<script type="text/javascript">
-(function() {
-	'use strict';
-	window.addEventListener('load', function() { //window on load function
-
-		var form = document.getElementById('mainForm');
-		var button = document.getElementById('submitbtn');
-
-		button.addEventListener('click', function(event) { //button click event listner
-			if (form.checkValidity() === false) { //checks if form is valid
-				event.preventDefault(); // if not valid then prevent to submit
-				event.stopPropagation();
-				form.classList.add('was-validated');
-			} else{
-				form.submit(); //if valid then form submit
-			} 
-		}, false);
-	}, false);
-})();
-
-$(document).ready(function () { 
-	$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
-		$('#sidebar').toggleClass('active'); // sidebar div class value toggle
-	});
-});
-</script>
-
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
+            });
+        });
+    </script>
+	
 </body>
 
 </html>
