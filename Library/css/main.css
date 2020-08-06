@@ -3,6 +3,7 @@ Sunder Krishna Upreti
 This file is for the graphics interface od the website
 */
 
+
 .action-button {
 	background-color: Transparent;
 	border: none; 
@@ -25,3 +26,4 @@ a:hover {background-color: #2D89E5;  color: #fff;}
     height: 10vw;
     object-fit: center;
 }
+
