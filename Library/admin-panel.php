@@ -8,7 +8,7 @@ CSCE 3444
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
     <title>UNT LIBRARY | DASHBOARD</title>
 
     <!-- Bootstrap CSS CDN -->
@@ -19,12 +19,11 @@ CSCE 3444
 </head>
 
 <?php
-session_start(); //creates a session or resumes the current one based on a session identifier
-if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin' ) //checks if session variable have user_id and role equal admin
-{
-	header('Location: login.php'); //If above is false then redirect to login page 
-}
-require_once("db-connection.php"); // include db connection helper in this php file
+	session_start(); //creates a session or resumes the current one based on a session identifier
+	if(!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin' ) { //checks if session variable have user_id and role equal admin
+	   header('Location: login.php'); //If above is false then redirect to login page 
+	}
+	require_once("db-connection.php"); // include db connection helper in this php file
 ?>
 
 <body>
@@ -120,48 +119,47 @@ require_once("db-connection.php"); // include db connection helper in this php f
 			</div>
 		</div>
 		<footer class="page-footer" style=" background-color: rgba(245, 245, 245, 0.5); ">
-		  <div class="footer-copyright text-center py-4"><h6>Contact : abc@gmail.com &nbsp;&nbsp; Phone : 999100011</h6></div>
+		  <div class="footer-copyright text-center py-4"><h6>Email : sahilpatel@gmail.com &nbsp;&nbsp; Phone : +1 (912) 384 - 1234 &nbsp;&nbsp; Address : 1234 Belt Line road, Dallas, TX, 75250  </h6></div>
 		</footer>
 	</div>
-
-<?php   
-//query to get studentCount, bookCount and borrowCount in dashboard
-$sql ="SELECT count(*) studentCount, (SELECT count(*) from books) bookCount, (SELECT count(*) from borrow_return WHERE returned='N') borrowCount FROM users WHERE role='student'";
-
-$result = $conn->query($sql); //execute query
-if ($result->num_rows > 0) //checks if result num_rows is gt than 0
-{
-	while($row = $result->fetch_assoc()) {
-		// get studentCount, bookCount and borrowCount from query result row
-		$studentCount = $row["studentCount"];
-		$bookCount = $row["bookCount"];
-		$borrowCount = $row["borrowCount"];
-		// fill up studentCount, bookCount and borrowCount in html
-		echo "<script>  
-			document.getElementById('studentCount').innerHTML = '<span>$studentCount</span>';
-		document.getElementById('bookCount').innerHTML = '<span>$bookCount</span>';
-		document.getElementById('borrowCount').innerHTML = '<span>$borrowCount</span>';
+	
+	<?php 
+		//query to get studentCount, bookCount and borrowCount in dashboard
+		$sql ="SELECT count(*) studentCount, (SELECT count(*) from books) bookCount, (SELECT count(*) from borrow_return WHERE returned='N') borrowCount FROM users WHERE role='student'";
+		
+		$result = $conn->query($sql); //execute query
+		if ($result->num_rows > 0) {  //checks if result num_rows is gt than 0
+			while($row = $result->fetch_assoc()) {
+				// get studentCount, bookCount and borrowCount from query result row
+				$studentCount = $row["studentCount"];
+				$bookCount = $row["bookCount"];
+				$borrowCount = $row["borrowCount"];
+				// fill up studentCount, bookCount and borrowCount in html
+				echo "<script>  
+					document.getElementById('studentCount').innerHTML = '<span>$studentCount</span>';
+					document.getElementById('bookCount').innerHTML = '<span>$bookCount</span>';
+					document.getElementById('borrowCount').innerHTML = '<span>$borrowCount</span>';
 				</script>" ;
 			}
 		}  	
 	?>	
-
+	
     <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
 	<!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
-
+	
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-$(document).ready(function () {
-	$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
-		$('#sidebar').toggleClass('active'); // sidebar div class value toggle
-	});
-});
-</script>
-
+    
+    <script type="text/javascript">
+		$(document).ready(function () {
+			$('#sidebarCollapse').on('click', function () { //sidebar collapse button event listner
+                $('#sidebar').toggleClass('active'); // sidebar div class value toggle
+            });
+        });
+    </script>
+	
 </body>
 
 </html>
